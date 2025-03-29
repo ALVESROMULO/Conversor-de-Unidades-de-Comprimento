@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor de Unidades de Comprimento</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        .converter {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .converter:hover {
+            background-color: #45a049;
+        }
+        input, select {
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .resultado {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f8f8f8;
+            border-radius: 4px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Conversor de Unidades de Comprimento</h1>
+    <p>Converta metros para unidades imperiais</p>
+    
+    <div>
+        <label for="metros">Valor em metros:</label>
+        <input type="number" id="metros" step="any" min="0" placeholder="Digite o valor em metros">
+    </div>
+    
+    <div>
+        <label for="unidade">Converter para:</label>
+        <select id="unidade">
+            <option value="jarda">Jarda</option>
+            <option value="pe">Pé</option>
+            <option value="polegada">Polegada</option>
+            <option value="milha">Milha</option>
+        </select>
+    </div>
+    
+    <button class="converter" onclick="converter()">Converter</button>
+    
+    <div id="resultado" class="resultado"></div>
+    
+    <script>
+        function converter() {
+            // Obter os valores de entrada
+            const metros = parseFloat(document.getElementById('metros').value);
+            const unidade = document.getElementById('unidade').value;
+            
+            // Verificar se o valor é válido
+            if (isNaN(metros) || metros < 0) {
+                alert("Por favor, insira um valor válido em metros.");
+                return;
+            }
+            
+            // Fatores de conversão
+            const fatores = {
+                jarda: 1.09361,
+                pe: 3.28084,
+                polegada: 39.3701,
+                milha: 0.000621371
+            };
+            
+            // Realizar a conversão
+            let resultado = metros * fatores[unidade];
+            let unidadeNome = "";
+            
+            // Determinar o nome da unidade para exibição
+            switch(unidade) {
+                case "jarda":
+                    unidadeNome = "jardas";
+                    break;
+                case "pe":
+                    unidadeNome = "pés";
+                    break;
+                case "polegada":
+                    unidadeNome = "polegadas";
+                    break;
+                case "milha":
+                    unidadeNome = "milhas";
+                    break;
+            }
+            
+            // Exibir o resultado
+            document.getElementById('resultado').innerHTML = 
+                `${metros} metro(s) = ${resultado.toFixed(6)} ${unidadeNome}`;
+        }
+    </script>
+</body>
+</html>
